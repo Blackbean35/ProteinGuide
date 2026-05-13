@@ -1,0 +1,5 @@
+# TadABench-1M Arrow 데이터파일 → Git LFS로 관리
+TadABench-1M/data/**/*.arrow filter=lfs diff=lfs merge=lfs -text
+
+# uv.lock도 LFS (0.42MB라 사실 불필요하지만 혹시 커지면 대비)
+# TadABench-1M/uv.lock filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,25 @@
+# ProteinGuide Framework - Dependencies
+# Core
+torch>=2.0
+numpy>=1.24
+scipy>=1.10
+pandas>=2.0
+
+# Protein models
+esm                     # ESM3 (EvolutionaryScale)
+
+# Structure handling
+biopython>=1.81
+biotite>=0.38
+
+# Config & CLI
+PyYAML>=6.0
+argparse
+
+# Visualization & output
+matplotlib>=3.7
+seaborn>=0.12
+tqdm>=4.65
+
+# Optional: ProteinMPNN (clone separately)
+# git clone https://github.com/dauparas/ProteinMPNN.git

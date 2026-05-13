@@ -1,0 +1,122 @@
+{
+  "builder_name": "parquet",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "tad_a_bench-1_m",
+  "dataset_size": 1160311926,
+  "description": "",
+  "download_checksums": {
+    "hf://datasets/anonymous/AnonymizedDataset@07168448caaafab4efb26eca04ec3e503edf1c04/data/all.AA.train-00000-of-00001.parquet": {
+      "num_bytes": 6485840,
+      "checksum": null
+    },
+    "hf://datasets/anonymous/AnonymizedDataset@07168448caaafab4efb26eca04ec3e503edf1c04/data/all.AA.val-00000-of-00001.parquet": {
+      "num_bytes": 1456126,
+      "checksum": null
+    },
+    "hf://datasets/anonymous/AnonymizedDataset@07168448caaafab4efb26eca04ec3e503edf1c04/data/all.AA.test-00000-of-00001.parquet": {
+      "num_bytes": 2975756,
+      "checksum": null
+    },
+    "hf://datasets/anonymous/AnonymizedDataset@07168448caaafab4efb26eca04ec3e503edf1c04/data/all.RNA.train-00000-of-00001.parquet": {
+      "num_bytes": 63044873,
+      "checksum": null
+    },
+    "hf://datasets/anonymous/AnonymizedDataset@07168448caaafab4efb26eca04ec3e503edf1c04/data/all.RNA.val-00000-of-00001.parquet": {
+      "num_bytes": 8763709,
+      "checksum": null
+    },
+    "hf://datasets/anonymous/AnonymizedDataset@07168448caaafab4efb26eca04ec3e503edf1c04/data/all.RNA.test-00000-of-00001.parquet": {
+      "num_bytes": 8612983,
+      "checksum": null
+    },
+    "hf://datasets/anonymous/AnonymizedDataset@07168448caaafab4efb26eca04ec3e503edf1c04/data/all.DNA.train-00000-of-00001.parquet": {
+      "num_bytes": 62751014,
+      "checksum": null
+    },
+    "hf://datasets/anonymous/AnonymizedDataset@07168448caaafab4efb26eca04ec3e503edf1c04/data/all.DNA.val-00000-of-00001.parquet": {
+      "num_bytes": 8760053,
+      "checksum": null
+    },
+    "hf://datasets/anonymous/AnonymizedDataset@07168448caaafab4efb26eca04ec3e503edf1c04/data/all.DNA.test-00000-of-00001.parquet": {
+      "num_bytes": 8610117,
+      "checksum": null
+    }
+  },
+  "download_size": 171460471,
+  "features": {
+    "Sequence": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "Value": {
+      "dtype": "float64",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 1331772397,
+  "splits": {
+    "all.AA.train": {
+      "name": "all.AA.train",
+      "num_bytes": 48706602,
+      "num_examples": 256429,
+      "dataset_name": "tad_a_bench-1_m"
+    },
+    "all.AA.val": {
+      "name": "all.AA.val",
+      "num_bytes": 9607985,
+      "num_examples": 45208,
+      "dataset_name": "tad_a_bench-1_m"
+    },
+    "all.AA.test": {
+      "name": "all.AA.test",
+      "num_bytes": 20495627,
+      "num_examples": 108232,
+      "dataset_name": "tad_a_bench-1_m"
+    },
+    "all.RNA.train": {
+      "name": "all.RNA.train",
+      "num_bytes": 384880138,
+      "num_examples": 729302,
+      "dataset_name": "tad_a_bench-1_m"
+    },
+    "all.RNA.val": {
+      "name": "all.RNA.val",
+      "num_bytes": 77436928,
+      "num_examples": 148014,
+      "dataset_name": "tad_a_bench-1_m"
+    },
+    "all.RNA.test": {
+      "name": "all.RNA.test",
+      "num_bytes": 78433790,
+      "num_examples": 149884,
+      "dataset_name": "tad_a_bench-1_m"
+    },
+    "all.DNA.train": {
+      "name": "all.DNA.train",
+      "num_bytes": 384880138,
+      "num_examples": 729302,
+      "dataset_name": "tad_a_bench-1_m"
+    },
+    "all.DNA.val": {
+      "name": "all.DNA.val",
+      "num_bytes": 77436928,
+      "num_examples": 148014,
+      "dataset_name": "tad_a_bench-1_m"
+    },
+    "all.DNA.test": {
+      "name": "all.DNA.test",
+      "num_bytes": 78433790,
+      "num_examples": 149884,
+      "dataset_name": "tad_a_bench-1_m"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}

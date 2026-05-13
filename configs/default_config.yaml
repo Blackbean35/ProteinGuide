@@ -1,0 +1,61 @@
+# ProteinGuide Default Configuration
+# Modify this file for your specific genome editor target.
+
+# -------------------------------------------------------
+# Project: Target protein information
+# -------------------------------------------------------
+project:
+  name: "MyEditor_engineering"      # Project name
+  target_protein: "MyEditor"        # Protein name
+  wt_sequence: ""                   # Full wild-type amino acid sequence (paste here)
+  pdb_path: "structures/my_editor.pdb"  # Path to PDB structure file
+  chain_id: null                    # PDB chain ID (null = first chain)
+  n_chains: 1                       # Number of identical chains (1 = monomer, 2 = homodimer)
+
+# -------------------------------------------------------
+# Design: Which positions to engineer
+# -------------------------------------------------------
+design:
+  designable_start: 0               # Start of designable region (0-indexed, inclusive)
+  designable_end: 100               # End of designable region (0-indexed, exclusive)
+  fixed_positions: []               # Positions to keep at wild-type (e.g., active site residues)
+                                    # Example: [86, 87, 90]
+
+# -------------------------------------------------------
+# Round 1: Unguided library generation
+# -------------------------------------------------------
+generation:
+  model: "esm3"                     # "esm3" or "proteinmpnn"
+  n_samples: 1000                   # Total number of sequences to generate
+  temperature: 0.5                  # Sampling temperature (lower = more conservative)
+  wt_weight:                        # Wild-type weights (generates n_samples/len(wt_weight) per weight)
+    - 0.0
+    - 0.5
+    - 1.0
+    - 1.5
+    - 2.0
+    - 2.5
+    - 3.0
+    - 3.5
+  stochasticity: 0.0                # Sampling stochasticity (η)
+
+# -------------------------------------------------------
+# Predictor: Property prediction model settings
+# -------------------------------------------------------
+predictor:
+  type: "linear_pairwise"           # "linear_pairwise" (for small datasets)
+  regularization: 10.0              # L2 regularization on pairwise terms
+  clean_epochs: 400                 # Phase 1 training epochs
+  noisy_epochs: 400                 # Phase 2 (noisy) training epochs
+  learning_rate: 0.01
+
+# -------------------------------------------------------
+# Round 2: Guided generation
+# -------------------------------------------------------
+guidance:
+  algorithm: "deg"                  # "deg" (exact, recommended) or "tag" (fast, approximate)
+  gamma: 100                        # Guidance strength (1 = Bayes' rule, 100 = strong)
+  temperature: 0.5                  # Sampling temperature
+  dt: 0.01                          # Euler step size (TAG only)
+  wt_weight: 0.0                    # Wild-type bias
+  n_samples: 500                    # Number of guided sequences

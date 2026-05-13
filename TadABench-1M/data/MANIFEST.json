@@ -1,0 +1,13 @@
+{
+  "source": "anonymized",
+  "seq_types": [
+    "AA",
+    "DNA"
+  ],
+  "splits": [
+    "train",
+    "val",
+    "test"
+  ],
+  "format": "datasets.save_to_disk"
+}
