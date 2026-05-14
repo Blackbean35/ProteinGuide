@@ -1,0 +1,64 @@
+# ProteinGuide Configuration — TadA8e Engineering
+# -------------------------------------------------------
+# Copy this file and edit for your specific experiment.
+# Run: python scripts/03_guided_generation.py --config configs/tada_config.yaml
+# -------------------------------------------------------
+
+project:
+  name: "TadA8e_engineering"
+  target_protein: "TadA8e"
+
+  # TadA8e wild-type sequence (167 AA)
+  wt_sequence: "MSEVEFSHEYWMRHALTLAKRARDEREVPVGAVLVLNNRVIGEGWNRAIGLHDPTAHAEIMALRQGGLVMQNYRLIDATLYVTFEPCVMCAGAMIHSRIGRVVFGVRNAKTGAAGSLMDVLHYPGMNHRVEITEGILADECAALLCDFYRMPRQVFNAQKKAQSSTD"
+
+  # PDB structure of TadA8e (place your PDB file here)
+  # Download from RCSB: 7XNB (ABE8e structure)
+  pdb_path: "structures/TadA8e.pdb"
+  chain_id: null         # null = auto-detect first chain
+  n_chains: 1            # TadA acts as a monomer in the ABE complex
+
+design:
+  # Design the full TadA sequence (0-indexed, exclusive end)
+  designable_start: 0
+  designable_end: 167
+
+  # Catalytic residues — keep at wild-type
+  # TadA8e key residues: W23 (tRNA binding), H57/E59/C97 (zinc coordination)
+  # Adjust these based on your experimental knowledge
+  fixed_positions: [22, 56, 58, 96]   # 0-indexed: W23→22, H57→56, E59→58, C97→96
+
+generation:
+  # Round 1: Unguided library (only needed if you don't have TadABench-1M)
+  model: "esm3"
+  n_samples: 1000
+  temperature: 0.5
+  wt_weight:
+    - 0.0
+    - 0.5
+    - 1.0
+    - 1.5
+    - 2.0
+    - 2.5
+    - 3.0
+    - 3.5
+  stochasticity: 0.0
+
+predictor:
+  # ESM2 predictor trained on TadABench-1M (script: 00_train_tada_predictor.py)
+  type: "esm2"
+  checkpoint: "models/tada_esm2_predictor.pt"
+  backbone: "facebook/esm2_t12_35M_UR50D"   # must match what was used in training
+
+guidance:
+  # Round 2: Guided generation
+  algorithm: "deg"     # "deg" (recommended) or "tag" (faster, approximate)
+  gamma: 100           # Guidance strength (1=Bayes, 100=strong)
+  temperature: 0.5
+  wt_weight: 0.0       # 0 = no WT bias during guided sampling
+  n_samples: 500
+
+output:
+  round1_fasta: "output/tada_round1_library.fasta"
+  round1_csv:   "output/tada_round1_library.csv"
+  round2_fasta: "output/tada_round2_guided.fasta"
+  round2_csv:   "output/tada_round2_guided.csv"

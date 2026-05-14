@@ -1,20 +1,29 @@
 # ProteinGuide Framework - Dependencies
+
 # Core
 torch>=2.0
 numpy>=1.24
 scipy>=1.10
 pandas>=2.0
 
-# Protein models
+# Protein language models
 esm                     # ESM3 (EvolutionaryScale)
+transformers>=4.40      # ESM2 backbone (HuggingFace)
+accelerate              # Required by some HuggingFace models
+
+# Data loading (TadABench-1M Arrow format)
+datasets>=2.18
+pyarrow>=14.0
 
 # Structure handling
 biopython>=1.81
 biotite>=0.38
 
+# ML utilities
+scikit-learn>=1.3       # AUROC, cross-validation
+
 # Config & CLI
 PyYAML>=6.0
-argparse
 
 # Visualization & output
 matplotlib>=3.7
