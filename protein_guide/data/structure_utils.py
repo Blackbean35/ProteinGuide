@@ -63,7 +63,21 @@ def _load_cif(cif_path: str, chain_id: Optional[str] = None) -> Dict[str, np.nda
 
 def _extract_backbone(model, chain_id: Optional[str] = None) -> Dict[str, np.ndarray]:
     """Extract backbone coordinates from a BioPython model."""
-    from Bio.PDB.Polypeptide import is_aa, three_to_one
+    # BioPython >= 1.80 removed three_to_one from Bio.PDB.Polypeptide.
+    # Try multiple locations for compatibility.
+    from Bio.PDB.Polypeptide import is_aa
+    try:
+        from Bio.PDB.Polypeptide import three_to_one
+    except ImportError:
+        try:
+            from Bio.Data.PDBData import protein_letters_3to1_extended as _map
+            def three_to_one(resname: str) -> str:
+                return _map.get(resname.upper(), "X")
+        except ImportError:
+            from Bio.SeqUtils import seq1 as _seq1
+            def three_to_one(resname: str) -> str:  # type: ignore[misc]
+                return _seq1(resname) or "X"
+
 
     # Select chain
     chains = list(model.get_chains())
