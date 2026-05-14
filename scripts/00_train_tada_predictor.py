@@ -75,26 +75,32 @@ def parse_args():
     parser.add_argument(
         "--hidden_size",
         type=int,
-        default=1024,
-        help="MLP hidden layer size",
+        default=512,
+        help="MLP hidden layer size (default: 512 with mean pooling)",
     )
     parser.add_argument(
         "--n_epochs",
         type=int,
-        default=20,
-        help="Number of training epochs",
+        default=30,
+        help="Number of training epochs for the MLP head",
     )
     parser.add_argument(
         "--batch_size",
         type=int,
+        default=256,
+        help="MLP training batch size (large is fine — no backbone fwd pass)",
+    )
+    parser.add_argument(
+        "--embed_batch_size",
+        type=int,
         default=64,
-        help="Batch size (reduce if OOM on GPU)",
+        help="ESM2 batch size during embedding precomputation (reduce if OOM)",
     )
     parser.add_argument(
         "--lr",
         type=float,
-        default=1e-4,
-        help="Learning rate for MLP head",
+        default=3e-4,
+        help="Learning rate for MLP head (AdamW)",
     )
     parser.add_argument(
         "--max_train",
@@ -187,7 +193,6 @@ def main():
     predictor = ESM2MLPPredictor(
         embed_name=args.backbone,
         hidden_size=args.hidden_size,
-        seq_length=167,
         device=args.device,
         wt_sequence=TADA8E_WT,
     )
@@ -197,8 +202,8 @@ def main():
         data_dir=args.data_dir,
         n_epochs=args.n_epochs,
         batch_size=args.batch_size,
+        embed_batch_size=args.embed_batch_size,
         lr=args.lr,
-        threshold=None,            # Regression mode (normalized [0,1])
         max_train_samples=args.max_train,
     )
 
