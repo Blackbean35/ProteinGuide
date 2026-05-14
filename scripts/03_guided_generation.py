@@ -69,12 +69,18 @@ def parse_args():
                              "Defaults to value in checkpoint or config.")
     
     # Structure & Sequence
-    parser.add_argument("--pdb", type=str, required=True)
+    # These can be set via --config YAML (tada_config.yaml has them pre-filled)
+    parser.add_argument("--pdb", type=str, default=None,
+                        help="Path to PDB structure file. Or set via YAML config.")
     parser.add_argument("--chain_id", type=str, default=None)
-    parser.add_argument("--wt_sequence", type=str, required=True)
-    parser.add_argument("--designable_start", type=int, required=True)
-    parser.add_argument("--designable_end", type=int, required=True)
-    parser.add_argument("--fixed_positions", type=str, default="")
+    parser.add_argument("--wt_sequence", type=str, default=None,
+                        help="Wild-type amino acid sequence. Or set via YAML config.")
+    parser.add_argument("--designable_start", type=int, default=None,
+                        help="Start of designable region (0-indexed). Or set via YAML.")
+    parser.add_argument("--designable_end", type=int, default=None,
+                        help="End of designable region (0-indexed, exclusive). Or set via YAML.")
+    parser.add_argument("--fixed_positions", type=str, default=None,
+                        help="Comma-separated 0-indexed positions to keep at WT. Or set via YAML.")
     
     # Model
     parser.add_argument("--model", type=str, default="esm3",
