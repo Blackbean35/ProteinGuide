@@ -28,8 +28,8 @@ design:
   fixed_positions: [22, 56, 58, 96]   # 0-indexed: W23→22, H57→56, E59→58, C97→96
 
 generation:
-  # Round 1: Unguided library (only needed if you don't have TadABench-1M)
-  model: "esm3"
+  # Round 1: Unguided library — esm2 requires no HuggingFace authentication
+  model: "esm2"
   n_samples: 1000
   temperature: 0.5
   wt_weight:

@@ -83,8 +83,10 @@ def parse_args():
                         help="Comma-separated 0-indexed positions to keep at WT. Or set via YAML.")
     
     # Model
-    parser.add_argument("--model", type=str, default="esm3",
-                        choices=["esm3", "proteinmpnn"])
+    parser.add_argument("--model", type=str, default="esm2",
+                        choices=["esm2", "esm3", "proteinmpnn"],
+                        help="Generative model: 'esm2' (open, no auth), "
+                             "'esm3' (gated, needs HF login), 'proteinmpnn'")
     parser.add_argument("--device", type=str, default="cuda")
     parser.add_argument("--n_chains", type=int, default=1)
     
@@ -204,7 +206,14 @@ def main():
     
     # Load generative model
     logger.info(f"Loading {model_name} model...")
-    if model_name == "esm3":
+    if model_name == "esm2":
+        from protein_guide.models.esm2_gen_model import ESM2GenerativeModel
+        gen_model = ESM2GenerativeModel(
+            model_name="facebook/esm2_t12_35M_UR50D",
+            device_str=args.device,
+            n_chains=int(n_chains),
+        )
+    elif model_name == "esm3":
         gen_model = ESM3Model(device_str=args.device, n_chains=int(n_chains))
     elif model_name == "proteinmpnn":
         from protein_guide.models.proteinmpnn_model import ProteinMPNNModel
