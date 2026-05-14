@@ -136,14 +136,15 @@ def evaluate_full(predictor, data_dir: str, split: str = "test"):
     batch_size = 64
     predictor.head.eval()
     for start in range(0, len(seqs), batch_size):
-        batch = seqs[start : start + batch_size]
-        emb = predictor._embed(batch)
+        batch = list(seqs[start : start + batch_size])
+        emb = predictor._embed_mean(batch).to(predictor._device)
         import torch
         with torch.no_grad():
             scores = torch.sigmoid(predictor.head(emb)).squeeze()
         if scores.ndim == 0:
             scores = scores.reshape(1)
         preds.extend(scores.cpu().numpy().tolist())
+
 
     preds = np.array(preds)
     labels = vals[: len(preds)]
